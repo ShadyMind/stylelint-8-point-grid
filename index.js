@@ -2,7 +2,7 @@ const stylelint = require('stylelint')
 const { createPlugin } = stylelint
 const { ruleMessages, validateOptions, report } = stylelint.utils
 
-const VARIABLE_RE_STR = '(?:--|@|$)[0-9a-zA-Z\\-_]+';
+const VARIABLE_RE_STR = '(?:--|@|$)[0-9a-zA-Z\\-_]+'
 const rules = {
   'plugin/8-point-grid': {
     base: 8
@@ -95,9 +95,11 @@ const rule = createPlugin(ruleName, (primaryOption, secondaryOption) => {
     let props = blacklist
     const { ignore, whitelist } = primaryOption
     if (ignore) {
-      props = props.filter(prop => (
-        !ignore.includes(prop) || (prop === VARIABLE_RE_STR && !ignore.includes('variables'))
-      ))
+      props = props.filter(
+        prop =>
+          !ignore.includes(prop) ||
+          (prop === VARIABLE_RE_STR && !ignore.includes('variables'))
+      )
     }
 
     postcssRoot.walkDecls(pattern(props), decl => {

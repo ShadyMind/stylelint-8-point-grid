@@ -29,6 +29,10 @@ testRule(eightPointGrid.rule, {
     { code: '.generic-card { left: 32px; }' },
     { code: '.generic-card { padding-left: 8px; padding-top: 16px; }' },
     { code: '.generic-card { padding: 3em 8px 8px 8px; }' },
+    { code: '.generic-card { --css-padding: 8px; }' },
+    { code: '.generic-card { --a1Z: 0px; }' },
+    { code: '.generic-card { @lessPadding: 8px; }' },
+    { code: '.generic-card { $sassPadding: 8px; }' },
     // ignore for now
     { code: '.generic-card { width: calc(100% - 31px); }' },
     { code: '.generic-card { padding-left: $field-height; }' },

@@ -1,7 +1,7 @@
 # stylelint-8-point-grid
 [![Build Status](https://travis-ci.org/dcrtantuco/stylelint-8-point-grid.svg?branch=master)](https://travis-ci.org/dcrtantuco/stylelint-8-point-grid)
 
-Validates any defined `margin`, `padding`, `height`, and `width`
+Validates any defined `margin`, `padding`, `height`, `width` and custom variables.
 
 ![](demo.png)
 
@@ -10,7 +10,7 @@ Validates any defined `margin`, `padding`, `height`, and `width`
 - [The 8-Point Grid](https://spec.fm/specifics/8-pt-grid)
 
 ## Unsupported
-`calc` CSS function and `sass variables`
+`calc` CSS function
 
 ## Installation
 ### npm
@@ -45,7 +45,7 @@ Update .stylelintrc or stylelint config in `package.json`
     "plugin/8-point-grid": {
       "base": 4,
       "whitelist": ["2px", "1px"],
-      "ignore": ["width", "height"]
+      "ignore": ["width", "height", "custom-variables"]
     }
   }
 }
@@ -64,7 +64,8 @@ supported values: `margin`, `margin-top` `margin-bottom`, `margin-left`, `margin
 `padding`, `padding-top`, `padding-bottom`, `padding-left`, `padding-right`,
 `height`, `min-height`, `max-height`,
 `width`, `min-width`, `max-width`,
-`top`, ` bottom`, `right`, `left`
+`top`, `bottom`, `right`, `left`,
+`custom-variables`
 
 ## License
 

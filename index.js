@@ -2,6 +2,7 @@ const stylelint = require('stylelint')
 const { createPlugin } = stylelint
 const { ruleMessages, validateOptions, report } = stylelint.utils
 
+const VARIABLE_RE_STR = '(?:--|@|$)[0-9a-zA-Z\\-_]+';
 const rules = {
   'plugin/8-point-grid': {
     base: 8
@@ -9,6 +10,8 @@ const rules = {
 }
 
 const blacklist = [
+  VARIABLE_RE_STR,
+
   'margin',
   'margin-top',
   'margin-bottom',
@@ -61,7 +64,6 @@ const validPixelValue = (value, base, whitelist) => {
       .every(value => isWhitelist(whitelist, value) || divisibleBy(value, base))
   )
 }
-
 // ignore values with `calc` and sass variables
 const unsupported = ['calc', '\\$\\w+']
 
@@ -84,7 +86,7 @@ const rule = createPlugin(ruleName, (primaryOption, secondaryOption) => {
       actual: primaryOption,
       possible: {
         base: validBase,
-        ignore: blacklist,
+        ignore: blacklist.concat('variables'),
         whitelist: hasPxValue
       }
     })
@@ -92,7 +94,11 @@ const rule = createPlugin(ruleName, (primaryOption, secondaryOption) => {
 
     let props = blacklist
     const { ignore, whitelist } = primaryOption
-    if (ignore) props = props.filter(prop => !ignore.includes(prop))
+    if (ignore) {
+      props = props.filter(prop => (
+        !ignore.includes(prop) || (prop === VARIABLE_RE_STR && !ignore.includes('variables'))
+      ))
+    }
 
     postcssRoot.walkDecls(pattern(props), decl => {
       if (!valid(decl.value)) return
